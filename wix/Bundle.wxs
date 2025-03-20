@@ -1,0 +1,11 @@
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+  <Bundle UpgradeCode="F98C253E-0976-405C-87AD-119EDFF8CDAD" Compressed="yes" Manufacturer="Zohan Haque" Name="DebaPaint - Beta" Version="1.0.0.0">
+    <Chain>
+      <MsiPackage SourceFile="WixPieOutput\DebaPaint.msi" />
+      <ExePackage Id="langpakexec" SourceFile="setup.exe" />
+    </Chain>
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
+      <bal:WixStandardBootstrapperApplication LicenseFile="Terms.rtf" LicenseUrl="sites.google.com/view/debapaint" LogoFile="C:\Users\zohan\Downloads\wix\logo.png" />
+    </BootstrapperApplicationRef>
+  </Bundle>
+</Wix>

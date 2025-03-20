@@ -1,0 +1,90 @@
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="C7A529A4-41BC-48B3-B2FE-1AD7C3BBD601" UpgradeCode="DFBE82EC-E388-4B0F-A082-6C75DE0F78B0" Version="1.0.0.0" Name="DebaPaint" Manufacturer="Zohan Haque" Language="1033">
+    <Package InstallerVersion="405" InstallScope="perMachine" InstallPrivileges="elevated" Compressed="yes" Manufacturer="Zohan Haque" />
+    <Media Cabinet="media1.cab" Id="1" EmbedCab="yes" />
+    <Icon Id="MyIcon" SourceFile="..\icon.ico" />
+    <WixVariable Id="WixUIDialogBmp" Value="Wizard.bmp" />
+    <WixVariable Id="WixUIBannerBmp" Value="Header.bmp" />
+    <WixVariable Id="WixUILicenseRtf" Value="Terms.rtf" />
+    <Property Id="ARPPRODUCTICON" Value="MyIcon" />
+    
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="MenuAppFolder" Name="TheAppName" />
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="MyAppFolder" Name="DebaPaint" />
+      </Directory>
+    </Directory>
+
+    <Feature Id="MainFeature" Title="DebaPaint" Level="1">
+      <ComponentGroupRef Id="RemoveFolders" />
+      <ComponentGroupRef Id="mspaint" />
+      <ComponentRef Id="Remove.ProgramFilesFolder" />
+      <ComponentRef Id="CId70B1B123" />
+      <ComponentRef Id="CId6D2CE299" />
+      <ComponentRef Id="CSCId2FEC4CEF" />
+      <ComponentRef Id="Remove.MenuAppFolder" />
+      <ComponentRef Id="CSCId5D456A14" />
+    </Feature>
+
+    <ComponentGroup Id="RemoveFolders">
+      <ComponentRef Id="Remove.MenuAppFolder" />
+      <ComponentRef Id="Remove.ProgramFilesFolder" />
+    </ComponentGroup>
+
+    <ComponentGroup Id="mspaint">
+      <ComponentRef Id="CId6D2CE299" />
+      <ComponentRef Id="CSCId2FEC4CEF" />
+      <ComponentRef Id="CSCId5D456A14" />
+      <ComponentRef Id="CId70B1B123" />
+    </ComponentGroup>
+
+    <UIRef Id="WixUI_FeatureTree" />
+
+    <DirectoryRef Id="ProgramFilesFolder">
+      <Component Id="Remove.ProgramFilesFolder" Guid="18CCFA0D-3177-40B5-8A6F-C979AE19A129">
+        <RemoveFolder Id="ProgramFilesFolder" On="uninstall" />
+        <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]" Type="string" Value="" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="MyAppFolder">
+      <Component Id="CId70B1B123" Guid="1A677F54-1FCE-40A0-A959-5EF662D6A0DC" Win64="no">
+        <File Id="FIdB26E40D1" Name="mspaint1.exe" Source="C:\Users\zohan\Downloads\DEBAPAINT\" />
+        <CreateFolder />
+      </Component>
+      <Component Id="CId6D2CE299" Guid="FFEC6EBC-1775-41E6-AE99-FC4028C08C41" Win64="no">
+        <File Id="FIdC7AC65A6" Name="mspaint1_original.exe" Source="C:\Users\zohan\Downloads\DEBAPAINT\" />
+        <CreateFolder />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="ProgramMenuFolder">
+      <Component Id="CSCId2FEC4CEF" Guid="0DA5AAA1-2B47-491B-905E-492D089F61A7">
+        <Shortcut Id="SId126815A7" Name="Debapaint" Target="[!FIdB26E40D1]" WorkingDirectory="MyAppFolder" Icon="MyIcon" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        <RemoveFolder Id="CSCId2FEC4CEF" Directory="ProgramMenuFolder" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="MenuAppFolder">
+      <Component Id="Remove.MenuAppFolder" Guid="966BE5A7-4C99-492F-B408-1575E422AA66">
+        <RemoveFolder Id="MenuAppFolder" On="uninstall" />
+        <RegistryValue Root="HKMU" Key="Software\[Manufacturer]\[ProductName]" Type="string" Value="" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="CSCId5D456A14" Guid="3D7E004D-681C-445E-90B1-BC7835EFA6EF">
+        <Shortcut Id="SId5F15C41D" Name="Debapaint" Target="[!FIdB26E40D1]" WorkingDirectory="MyAppFolder" Icon="MyIcon" />
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        <RemoveFolder Id="CSCId5D456A14" Directory="DesktopFolder" On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+  </Product>
+</Wix>
+
+
